@@ -13,5 +13,7 @@ export type ShowProps = {
   runtime: number;
   averageRuntime: number;
   premiered: string;
+  summary: string;
   schedule: { time: string };
+  rating: { average: number };
 };
