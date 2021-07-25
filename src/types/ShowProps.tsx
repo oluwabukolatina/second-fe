@@ -1,8 +1,7 @@
-import { ReactChild, ReactFragment, ReactPortal } from 'react';
 export type ShowProps = {
   id: number;
   image: { medium: string };
-  name: ReactChild | ReactFragment | ReactPortal;
+  name: string;
   programType: string;
   releaseYear: number;
   url: string;

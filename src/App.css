@@ -1,5 +1,6 @@
 .app {
-  color: #fff;
+  /* color: #fff; */
+  color: black;
   font-family: 'Raleway', sans-serif;
 }
 .header {
@@ -19,7 +20,6 @@
 }
 .loading {
   padding-left: 4rem;
-  color: black;
   font-weight: lighter;
 }
 
@@ -31,18 +31,33 @@
   margin-top: 2%;
   grid-column-gap: 1%;
 }
+.show {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.show-container {
+  margin: auto;
+  width: 40%;
+  margin-top: 1rem;
+  font-size: 13px;
+}
 .show-img {
   height: 203px;
   width: 176px;
 }
+.single-show-img {
+  /* height: 400px; */
+
+  height: 279px;
+  width: 403px;
+}
 .name {
   font-weight: lighter;
-  color: black;
+  font-size: 12px;
 }
 .rating-year {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  color: black;
 }
 @media only screen and (max-width: 768px) {
   .shows {
