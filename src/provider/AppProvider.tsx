@@ -3,7 +3,7 @@ import AppContext from '../context/AppContext';
 import useShows from '../components/shows/hooks/useShows';
 
 const AppProvider: FC<ReactNode> = ({ children }) => {
-  const { shows, loading, getShowDetails, show } = useShows();
+  const { shows, loading, getShowDetails, show, fetchMore } = useShows();
   return (
     <AppContext.Provider
       value={{
@@ -11,6 +11,7 @@ const AppProvider: FC<ReactNode> = ({ children }) => {
         loading,
         getShowDetails,
         show,
+        fetchMore,
       }}
     >
       {children}

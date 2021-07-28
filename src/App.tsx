@@ -5,16 +5,21 @@ import Shows from './components/shows/Shows';
 import Header from './layout/Header';
 import AppProvider from './provider/AppProvider';
 import Show from './components/shows/Show';
+import styled from 'styled-components';
 
+const AppStyle = styled.div`
+  color: black;
+  font-family: 'Raleway', sans-serif;
+`;
 const App = () => {
   return (
     <Switch>
       <AppProvider>
-        <div className="app">
+        <AppStyle>
           <Header />
-          <Route exact path="/show/:name" component={Show} />
           <Route exact path="/" component={Shows} />
-        </div>
+          <Route exact path="/show/:name" component={Show} />
+        </AppStyle>
       </AppProvider>
     </Switch>
   );

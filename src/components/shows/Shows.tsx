@@ -3,39 +3,78 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AppContext from '../../context/AppContext';
 import { ContextType } from '../../types/ContextType';
+import ReactPaginate from 'react-paginate';
+import { BulletList } from 'react-content-loader';
+import styled from 'styled-components';
 
+const BulletContainer = styled.div`
+  paddingleft: 2rem;
+  paddingright: 2rem;
+`;
+const Image = styled.img`
+  height: 203px;
+  width: 176px;
+`;
+export const ShowDetails = styled.p`
+  font-weight: lighter;
+  font-size: 12px;
+`;
+const ShowContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding-left: 4rem;
+  padding-right: 4rem;
+  margin-top: 2%;
+  grid-column-gap: 1%;
+`;
 function Shows() {
-  const { loading, shows } = useContext(AppContext) as ContextType;
+  const { loading, shows, fetchMore } = useContext(AppContext) as ContextType;
   const displayContent = () => {
-    if (loading) {
-      return <small>loading...</small>;
-    } else {
-      return shows.map((show) => (
-        <Link
-          key={show.id}
-          style={{
-            textDecoration: 'none',
-            color: 'black',
-          }}
-          to={{
-            pathname: `/show/${show.name.replace(/ /g, '-').toLowerCase()}`,
-            state: {
-              show,
-            },
-          }}
-        >
-          <img className="show-img" src={show.image.medium} alt="movie poster" />
-          <p className="name">{show.name}</p>
-          <p className="name">Rating: {show.rating.average || 'N/A'}</p>
-          <p className="name">Premiered on:{show.premiered}</p>
-          <p className="name">{helper.truncateString(helper.cleanSummary(show.summary), 50)}...</p>
-          <p className="name">Status: {show.status}</p>
-        </Link>
-      ));
-    }
+    return shows.map((show) => (
+      <Link
+        key={show.id}
+        style={{
+          textDecoration: 'none',
+          color: 'black',
+        }}
+        to={{
+          pathname: `/show/${show.name.replace(/ /g, '-').toLowerCase()}`,
+          state: {
+            show,
+          },
+        }}
+      >
+        <Image src={show.image ? show.image.medium : 'https://placeholder.com'} alt="movie poster" />
+        <ShowDetails>{show.name}</ShowDetails>
+        <ShowDetails>Rating:{show.rating.average || 'N/A'}</ShowDetails>
+        <ShowDetails>Premiered on:{show.premiered}</ShowDetails>
+        <ShowDetails>{helper.truncateString(helper.cleanSummary(show.summary && ''), 50)}...</ShowDetails>
+        <ShowDetails>Status:{show.status}...</ShowDetails>
+      </Link>
+    ));
   };
 
-  return <div className="shows">{displayContent()}</div>;
+  return loading ? (
+    <BulletContainer>
+      <BulletList />
+    </BulletContainer>
+  ) : (
+    <>
+      <ShowContainer>{displayContent()}</ShowContainer>
+      <ReactPaginate
+        previousLabel={'Prev'}
+        nextLabel={'Next'}
+        // breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={200}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={0}
+        onPageChange={fetchMore}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+      />
+    </>
+  );
 }
 
 export default Shows;
