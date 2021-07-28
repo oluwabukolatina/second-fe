@@ -1,10 +1,14 @@
 import { useEffect, useReducer } from 'react';
+import { ShowProps } from '../../../types/ShowProps';
 import showReducer from '../reducer/showReducer';
 import * as type from '../type/showTypes';
+import { useToasts } from 'react-toast-notifications';
 
 const API_URL = 'https://api.tvmaze.com/shows';
+const WATCHLIST_URL = 'https://second-company.herokuapp.com/api/v1/second-company/watchlist';
 
 const useShows = () => {
+  const { addToast } = useToasts();
   const [{ shows, loading, show }, dispatch] = useReducer(showReducer, { shows: [], loading: false, show: {} });
   const getShows = () => {
     dispatch({ type: type.STOP_LOADING, payload: true });
@@ -34,10 +38,28 @@ const useShows = () => {
       })
       .catch(() => dispatch({ type: type.STOP_LOADING, payload: false }));
   };
+  const addToWatchlist = (show: ShowProps) => {
+    const data = { name: show.name, id: show.id };
+    fetch(`${WATCHLIST_URL}`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === true) {
+          addToast(`${show.name} added to watchlist`, { appearance: 'success' });
+        } else {
+          addToast(`Unable to add ${show.name} to watchlist`, { appearance: 'error' });
+        }
+      })
+      .catch(() => {
+        addToast(`Something went wrong`, { appearance: 'error' });
+      });
+  };
   useEffect(() => {
     getShows();
   }, []);
 
-  return { shows, loading, getShowDetails, show, fetchMore };
+  return { shows, loading, getShowDetails, show, fetchMore, addToWatchlist };
 };
 export default useShows;

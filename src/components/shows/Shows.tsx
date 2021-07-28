@@ -27,8 +27,16 @@ const ShowContainer = styled.div`
   margin-top: 2%;
   grid-column-gap: 1%;
 `;
+const Button = styled.button`
+  background: #0e65c9;
+  color: white;
+  padding: 9px;
+  border-radius: 11px;
+  border-style: none;
+  cursor: pointer;
+`;
 function Shows() {
-  const { loading, shows, fetchMore } = useContext(AppContext) as ContextType;
+  const { loading, shows, fetchMore, addToWatchlist } = useContext(AppContext) as ContextType;
   const displayContent = () => {
     return shows.map((show) => (
       <div key={show.id}>
@@ -47,6 +55,7 @@ function Shows() {
 
         <ShowDetails>Rating:{show.rating.average || 'N/A'}</ShowDetails>
         <ShowDetails>Premiered on:{show.premiered}</ShowDetails>
+        <Button onClick={() => addToWatchlist(show)}>Add To Watchlist</Button>
         <ShowDetails>{helper.truncateString(helper.cleanSummary(show.summary || 'no summary'), 50)}...</ShowDetails>
       </div>
     ));
