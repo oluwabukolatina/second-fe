@@ -5,36 +5,8 @@ import AppContext from '../../context/AppContext';
 import { ContextType } from '../../types/ContextType';
 import ReactPaginate from 'react-paginate';
 import { BulletList } from 'react-content-loader';
-import styled from 'styled-components';
+import { BulletContainer, ShowContainer, Image, ShowDetails, Button } from '../../AppStyle';
 
-const BulletContainer = styled.div`
-  padding-left: 2rem;
-  padding-right: 2rem;
-`;
-const Image = styled.img`
-  height: 203px;
-  width: 176px;
-`;
-export const ShowDetails = styled.p`
-  font-weight: lighter;
-  font-size: 12px;
-`;
-const ShowContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  padding-left: 4rem;
-  padding-right: 4rem;
-  margin-top: 2%;
-  grid-column-gap: 1%;
-`;
-const Button = styled.button`
-  background: #0e65c9;
-  color: white;
-  padding: 9px;
-  border-radius: 11px;
-  border-style: none;
-  cursor: pointer;
-`;
 function Shows() {
   const { loading, shows, fetchMore, addToWatchlist } = useContext(AppContext) as ContextType;
   const displayContent = () => {

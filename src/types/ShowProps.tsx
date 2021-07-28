@@ -16,3 +16,12 @@ export type ShowProps = {
   schedule: { time: string };
   rating: { average: number };
 };
+
+export type WatchlistProps = {
+  name: string;
+  image: string;
+  id: number;
+  premiered: string;
+  summary: string;
+  rating: number;
+};

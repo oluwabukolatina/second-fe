@@ -12,6 +12,8 @@ const showReducer = (state: any, action: { payload: any; type: string }) => {
       return { ...state, loading: payload };
     case types.STOP_LOADING:
       return { ...state, loading: payload };
+    case types.GET_WATCHLIST:
+      return { ...state, loading: false, watchlist: payload };
     default:
       return state;
   }

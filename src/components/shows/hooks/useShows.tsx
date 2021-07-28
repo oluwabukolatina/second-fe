@@ -9,7 +9,12 @@ const WATCHLIST_URL = 'https://second-company.herokuapp.com/api/v1/second-compan
 
 const useShows = () => {
   const { addToast } = useToasts();
-  const [{ shows, loading, show }, dispatch] = useReducer(showReducer, { shows: [], loading: false, show: {} });
+  const [{ shows, loading, show, watchlist }, dispatch] = useReducer(showReducer, {
+    shows: [],
+    loading: false,
+    show: {},
+    watchlist: [],
+  });
   const getShows = () => {
     dispatch({ type: type.STOP_LOADING, payload: true });
 
@@ -39,7 +44,14 @@ const useShows = () => {
       .catch(() => dispatch({ type: type.STOP_LOADING, payload: false }));
   };
   const addToWatchlist = (show: ShowProps) => {
-    const data = { name: show.name, id: show.id };
+    const data = {
+      name: show.name,
+      id: show.id,
+      image: show.image.medium,
+      premiered: show.premiered,
+      summary: show.summary,
+      rating: show.rating.average,
+    };
     fetch(`${WATCHLIST_URL}`, {
       method: 'POST',
       body: JSON.stringify(data),
@@ -56,10 +68,25 @@ const useShows = () => {
         addToast(`Something went wrong`, { appearance: 'error' });
       });
   };
+
   useEffect(() => {
     getShows();
+    async function getWatchlist() {
+      dispatch({ type: type.START_LOADING, payload: true });
+      fetch(`${WATCHLIST_URL}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === true && data.data) {
+            dispatch({ type: type.GET_WATCHLIST, payload: data.data });
+          } else {
+            addToast(`Unable to get watchlist`, { appearance: 'error' });
+          }
+        })
+        .catch(() => dispatch({ type: type.STOP_LOADING, payload: false }));
+    }
+    getWatchlist();
   }, []);
 
-  return { shows, loading, getShowDetails, show, fetchMore, addToWatchlist };
+  return { shows, loading, getShowDetails, show, fetchMore, addToWatchlist, watchlist };
 };
 export default useShows;

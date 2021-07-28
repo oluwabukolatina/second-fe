@@ -1,4 +1,4 @@
-import { ShowProps } from './ShowProps';
+import { ShowProps, WatchlistProps } from './ShowProps';
 
 export type ContextType = {
   shows: ShowProps[];
@@ -6,4 +6,5 @@ export type ContextType = {
   getShowDetails: (id: number) => void;
   fetchMore: (selector: { selected: number }) => void;
   addToWatchlist: (show: ShowProps) => void;
+  watchlist: WatchlistProps[];
 };

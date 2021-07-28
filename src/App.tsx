@@ -6,6 +6,7 @@ import Header from './layout/Header';
 import AppProvider from './provider/AppProvider';
 import Show from './components/shows/Show';
 import styled from 'styled-components';
+import Watchlist from './components/watchlist/Watchlist';
 
 const AppStyle = styled.div`
   color: black;
@@ -19,6 +20,7 @@ const App = () => {
           <Header />
           <Route exact path="/" component={Shows} />
           <Route exact path="/show/:name" component={Show} />
+          <Route exact path="/watchlist" component={Watchlist} />
         </AppStyle>
       </AppProvider>
     </Switch>

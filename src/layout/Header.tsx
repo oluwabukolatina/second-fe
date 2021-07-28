@@ -1,12 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-const HeaderStyle = styled.div`
-  background: #0e65c9;
-  padding: 0.2% 4rem;
-  display: grid;
-  grid-template-columns: 70% 15% auto;
-`;
+import { HeaderStyle } from '../AppStyle';
+
 const AppName = styled.div`
   width: 67%;
   margin-top: auto;
@@ -21,7 +17,9 @@ const Header = () => {
           Second NL
         </Link>
       </AppName>
-      <p>TV API</p>
+      <Link className="app-link" to="/watchlist">
+        Second NL
+      </Link>
     </HeaderStyle>
   );
 };
