@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BulletContainer, ShowContainer, Image, ShowDetails } from '../../AppStyle';
 import AppContext from '../../context/AppContext';
 import { ContextType } from '../../types/ContextType';
+import { cleanSummary, truncateString } from '../shows/utils/show-utils';
 
 const Watchlist = () => {
   const { loading, watchlist } = useContext(AppContext) as ContextType;
@@ -22,6 +23,8 @@ const Watchlist = () => {
           }}
         >
           <ShowDetails>{show.name}</ShowDetails>
+          <ShowDetails>Premiered on:{show.premiered}</ShowDetails>
+          <ShowDetails>{truncateString(cleanSummary(show.summary || 'no summary'), 50)}...</ShowDetails>
         </Link>
       </div>
     ));

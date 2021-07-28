@@ -10,3 +10,6 @@
 .DS_Store
 .env
 .idea
+
+# Local Netlify folder
+.netlify

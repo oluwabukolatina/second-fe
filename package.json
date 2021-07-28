@@ -38,7 +38,8 @@
     "lint": "eslint '*/**/*.{js}' --quiet --fix",
     "lint:js": "eslint . --ext .js",
     "lint:js:fix": "npm run lint:js -- --fix",
-    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
+     "deploy": "npm run build && netlify deploy"
   },
   "eslintConfig": {
     "extends": "react-app"

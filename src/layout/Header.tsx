@@ -18,7 +18,7 @@ const Header = () => {
         </Link>
       </AppName>
       <Link className="app-link" to="/watchlist">
-        Second NL
+        Watchlist
       </Link>
     </HeaderStyle>
   );
