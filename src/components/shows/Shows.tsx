@@ -8,8 +8,8 @@ import { BulletList } from 'react-content-loader';
 import styled from 'styled-components';
 
 const BulletContainer = styled.div`
-  paddingleft: 2rem;
-  paddingright: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 `;
 const Image = styled.img`
   height: 203px;
@@ -31,26 +31,24 @@ function Shows() {
   const { loading, shows, fetchMore } = useContext(AppContext) as ContextType;
   const displayContent = () => {
     return shows.map((show) => (
-      <Link
-        key={show.id}
-        style={{
-          textDecoration: 'none',
-          color: 'black',
-        }}
-        to={{
-          pathname: `/show/${show.name.replace(/ /g, '-').toLowerCase()}`,
-          state: {
-            show,
-          },
-        }}
-      >
+      <div key={show.id}>
         <Image src={show.image ? show.image.medium : 'https://placeholder.com'} alt="movie poster" />
-        <ShowDetails>{show.name}</ShowDetails>
+        <Link
+          className="show-link"
+          to={{
+            pathname: `/show/${show.name.replace(/ /g, '-').toLowerCase()}`,
+            state: {
+              show,
+            },
+          }}
+        >
+          <ShowDetails>{show.name}</ShowDetails>
+        </Link>
+
         <ShowDetails>Rating:{show.rating.average || 'N/A'}</ShowDetails>
         <ShowDetails>Premiered on:{show.premiered}</ShowDetails>
-        <ShowDetails>{helper.truncateString(helper.cleanSummary(show.summary && ''), 50)}...</ShowDetails>
-        <ShowDetails>Status:{show.status}...</ShowDetails>
-      </Link>
+        <ShowDetails>{helper.truncateString(helper.cleanSummary(show.summary || 'no summary'), 50)}...</ShowDetails>
+      </div>
     ));
   };
 
